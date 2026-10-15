@@ -19,14 +19,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&amp;family=Figtree:wght@400;500;600&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&amp;text=%E5%9B%8D&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=3">
+  <link rel="stylesheet" href="assets/css/styles.css?v=4">
   <script>
-    // Marks that scripts run (for scroll reveals); returning visitors in the same tab skip the cover.
+    // Marks that scripts run (for scroll reveals) and whether the link has a guest code.
     (function () {
       var root = document.documentElement;
       root.classList.add('js');
       if (/[?&]u=[^&]/.test(location.search)) root.classList.add('has-code');
-      try { if (sessionStorage.getItem('opened')) root.classList.add('skip-cover'); } catch (e) {}
     })();
   </script>
 </head>
@@ -37,7 +36,7 @@
   </button>
 
   <!-- Cover -->
-  <section class="cover" id="cover" aria-label="Invitation cover">
+  <header class="cover" id="cover" aria-label="Invitation cover">
     <svg class="lantern lantern--l" viewBox="0 0 80 150" aria-hidden="true"><use href="#lantern"/></svg>
     <svg class="lantern lantern--r" viewBox="0 0 80 150" aria-hidden="true"><use href="#lantern"/></svg>
     <div class="cover__inner">
@@ -51,7 +50,10 @@
         <p class="pill">20 March 2027</p>
         <p class="cover__note">It won’t be a party without you. Come celebrate with us!</p>
       </div>
-      <button class="btn btn--jade cover__open" id="open" type="button">Open Invitation</button>
+      <a class="btn btn--jade cover__open" id="open" href="#main">
+        View Invitation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </a>
     </div>
     <!-- Laptops: photos beside the invitation (hidden on phones) -->
     <div class="cover__photos slideshow" aria-hidden="true">
@@ -60,7 +62,7 @@
       <img class="slide" src="assets/img/intro-3.jpg" alt="" loading="lazy" style="object-position: 50% 50%">
       <div class="dots"><span class="is-active"></span><span></span><span></span></div>
     </div>
-  </section>
+  </header>
 
   <main id="main">
     <!-- Intro photos (4:5 slideshow) -->
@@ -306,7 +308,7 @@
     </defs>
   </svg>
 
-  <script src="assets/js/config.js?v=3"></script>
-  <script src="assets/js/app.js?v=3"></script>
+  <script src="assets/js/config.js?v=4"></script>
+  <script src="assets/js/app.js?v=4"></script>
 </body>
 </html>

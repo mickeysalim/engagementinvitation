@@ -31,7 +31,7 @@ const configWith = (patch) => {
   let s = fs.readFileSync(path.join(ROOT, 'assets/js/config.js'), 'utf8');
   // Tests run in preview mode (sample guests) unless a test sets its own apiUrl.
   s = s.replace(/apiUrl: '[^']*'/, "apiUrl: '" + (patch.apiUrl || '') + "'");
-  if (patch.musicSrc !== undefined) s = s.replace(/musicSrc: '[^']*'/, "musicSrc: '" + patch.musicSrc + "'");
+  s = s.replace(/musicSrc: '[^']*'/, "musicSrc: '" + (patch.musicSrc || '') + "'");
   return s;
 };
 
@@ -56,8 +56,8 @@ const ready = (page) => page.waitForFunction(() => {
   return m.hidden || !/Loading/.test(m.textContent);
 });
 const open = async (page) => {
-  await page.click('#open');
-  await page.waitForFunction(() => document.documentElement.classList.contains('skip-cover'));
+  await page.click('#open', { force: true }); // the button gently floats
+  await page.waitForFunction(() => document.getElementById('cover').getBoundingClientRect().bottom <= 2);
 };
 async function scrollThrough(page) {
   await page.evaluate(async () => {
@@ -168,15 +168,18 @@ async function scrollThrough(page) {
     await ctx.close();
   });
 
-  await test('opening the invitation hides the cover and is remembered in this tab', async () => {
+  await test('one page: guests can just scroll; "View Invitation" scrolls to the next section', async () => {
     const { page, ctx } = await newPage(browser, base);
     await page.goto(base + '/?u=demo');
     await ready(page);
+    assert.strictEqual((await page.textContent('#open')).trim(), 'View Invitation');
+    await page.mouse.wheel(0, 900);
+    await page.waitForTimeout(600);
+    assert.ok(await page.evaluate(() => window.scrollY > 0), 'page scrolls without tapping');
+    await page.evaluate(() => window.scrollTo(0, 0));
     await open(page);
-    assert.ok(await page.isHidden('#cover'));
-    await page.reload();
-    await ready(page);
-    assert.ok(await page.isHidden('#cover'));
+    const top = await page.evaluate(() => document.querySelector('.intro').getBoundingClientRect().top);
+    assert.ok(Math.abs(top) < 3, 'photo section at the top, got ' + top);
     await ctx.close();
   });
 
@@ -337,7 +340,7 @@ async function scrollThrough(page) {
     await ctx.close();
   });
 
-  await test('music: hidden with no song; with a song it plays after Open and toggles off/on', async () => {
+  await test('music: hidden with no song; with a song it starts on the first tap and toggles off/on', async () => {
     let { page, ctx } = await newPage(browser, base);
     await page.goto(base + '/');
     await open(page);
@@ -355,9 +358,9 @@ async function scrollThrough(page) {
       };
     });
     await page.goto(base + '/');
-    assert.ok(await page.isVisible('#music') === false || true);
-    await open(page);
     assert.ok(await page.isVisible('#music'));
+    assert.strictEqual(await page.getAttribute('#music', 'aria-pressed'), 'false');
+    await open(page); // the first tap starts the music
     assert.strictEqual(await page.getAttribute('#music', 'aria-pressed'), 'true');
     await page.click('#music');
     assert.strictEqual(await page.getAttribute('#music', 'aria-pressed'), 'false');

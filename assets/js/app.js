@@ -75,9 +75,11 @@
       }, function () { throw new Error('We could not reach the server. Please check your connection and try again.'); });
   }
 
-  /* ---------- browser bar colour (WhatsApp / Safari) ---------- */
+  /* ---------- browser bar colour (WhatsApp / Safari): butter on the cover, white below ---------- */
   function barColor(c) { var m = $('theme-color'); if (m) m.setAttribute('content', c); }
-  if (root.classList.contains('skip-cover')) barColor('#FFFFFF');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { barColor(e[0].isIntersecting ? '#FBE3B4' : '#FFFFFF'); }, { threshold: 0.15 }).observe($('cover'));
+  }
 
   /* ---------- music ---------- */
   var music = (function () {
@@ -103,17 +105,24 @@
     function pause() { if (audio) audio.pause(); sset('music', 'off'); }
     btn.addEventListener('click', function () { if (audio && !audio.paused) pause(); else play(); });
     sync();
-    return { start: function () { if (sget('music') !== 'off') play(); } };
+    // Phones only allow sound after a tap, so the music starts on the guest's first tap or click
+    // anywhere (e.g. "View Invitation"), unless they turned it off.
+    var started = false;
+    function first(e) {
+      if (started) return;
+      started = true;
+      if (!(e.target && e.target.closest && e.target.closest('#music')) && sget('music') !== 'off') play();
+      ['click', 'touchend', 'keydown'].forEach(function (t) { document.removeEventListener(t, first, true); });
+    }
+    ['click', 'touchend', 'keydown'].forEach(function (t) { document.addEventListener(t, first, true); });
+    return { start: function () {} };
   })();
 
-  /* ---------- cover ---------- */
-  $('open').addEventListener('click', function () {
-    music.start(); // must run inside the tap, or phones block the sound
-    sset('opened', '1');
-    barColor('#FFFFFF');
-    $('cover').classList.add('is-closing');
-    window.scrollTo(0, 0);
-    setTimeout(function () { root.classList.add('skip-cover'); }, reduceMotion ? 0 : 750);
+  /* ---------- cover: "View Invitation" scrolls to the first section ---------- */
+  $('open').addEventListener('click', function (e) {
+    e.preventDefault();
+    var target = Array.prototype.find.call($('main').children, function (el) { return el.offsetHeight > 0; }) || $('main');
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
   });
 
   function setCoverName(names, title) {

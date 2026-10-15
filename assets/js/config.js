@@ -9,7 +9,7 @@ window.ENGAGEMENT_CONFIG = {
   storyUrl: 'https://www.instagram.com/p/DcTZTYZD1q9/',
 
   // e.g. 'assets/audio/song.mp3'. The music button stays hidden while this is empty.
-  musicSrc: '',
+  musicSrc: 'assets/audio/moon-represents-my-heart.mp3',
 
   // Used for "Save the Date". Times are in UTC (11.00–14.00 Jakarta time = 04:00–07:00 UTC).
   event: {
