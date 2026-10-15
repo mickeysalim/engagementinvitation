@@ -29,7 +29,8 @@ const PHONE = { width: 390, height: 844 };
 const API = 'https://script.example/exec';
 const configWith = (patch) => {
   let s = fs.readFileSync(path.join(ROOT, 'assets/js/config.js'), 'utf8');
-  if (patch.apiUrl !== undefined) s = s.replace(/apiUrl: '[^']*'/, "apiUrl: '" + patch.apiUrl + "'");
+  // Tests run in preview mode (sample guests) unless a test sets its own apiUrl.
+  s = s.replace(/apiUrl: '[^']*'/, "apiUrl: '" + (patch.apiUrl || '') + "'");
   if (patch.musicSrc !== undefined) s = s.replace(/musicSrc: '[^']*'/, "musicSrc: '" + patch.musicSrc + "'");
   return s;
 };
