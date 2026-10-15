@@ -133,7 +133,58 @@ test('createLinks writes a link formula per row', () => {
   vm.runInContext("CONFIG.SITE_URL = 'https://ex.app/'", env.ctx);
   env.ctx.createLinks();
   assert.strictEqual(env.data[0][9], 'Link');
-  assert.strictEqual(env.data[1][9], '=IF(G2="","","https://ex.app/?u="&G2)');
+  assert.strictEqual(env.data[1][9], '=IF(G2="","","https://ex.app/?u="&ENCODEURL(G2))');
+});
+
+// The real Engagement tab: a totals row above the header row, and an optional Title column.
+const REAL_HEADER = ['Title', 'Name 1', 'Name 2', 'Name 3', 'Name 4', 'Seats', 'Group', 'Code', 'RSVP', 'Updated at'];
+const realEnv = () => {
+  const env = makeEnv([
+    ['Title', 'Name 1', 'Name 2', 'Name 3', 'Name 4', 'Seats', 'Group', 'Code', 'RSVP', 'Updated at'],
+    ['Mr. & Mrs.', 'Victor', 'Stephanie', '', '', 2, 'Core', 'vic+steph', '', ''],
+    ['', 'Lusi', 'Yondy', '', '', 2, 'Engkong', 'Lusi', '', ''],
+    ['', 'Lusi', 'Koko', '', '', 2, 'Engkong', 'lusi', '', ''],
+    ['', 'Vina', 'Melvin', '', '', 2, 'Teman', '', '', ''],
+    ['', '', '', '', '', 0, '', '', '', '']
+  ], { header: ['', '', '', '', '', 166, '', '', 0, ''] });
+  return env;
+};
+
+test('header row below a totals row is found; RSVP writes to the right row', () => {
+  const env = realEnv();
+  const r = get(env, { action: 'guest', code: 'vic+steph' });
+  assert.deepStrictEqual(r.guest.names, ['Victor', 'Stephanie']);
+  assert.strictEqual(r.guest.title, 'Mr. & Mrs.');
+  post(env, { action: 'rsvp', code: 'vic+steph', count: 2 });
+  assert.strictEqual(env.data[2][8], 2);
+  assert.strictEqual(env.data[1][8], 'RSVP');
+});
+
+test('a "+" in the code still matches when the link turns it into a space', () => {
+  assert.strictEqual(get(realEnv(), { action: 'guest', code: 'vic steph' }).ok, true);
+});
+
+test('title is empty when there is no Title column', () => {
+  assert.strictEqual(get(makeEnv(ROWS), { action: 'guest', code: 'abc12345' }).guest.title, '');
+});
+
+test('checkCodes reports duplicate codes; generateCodes skips the totals and header rows', () => {
+  const env = realEnv();
+  const d = env.ctx.checkCodes();
+  assert.strictEqual(d.length, 1);
+  assert.ok(/rows 4 and 5/.test(d[0]));
+  assert.strictEqual(env.ctx.generateCodes(), 1); // only Vina & Melvin
+  assert.match(String(env.data[5][7]), /^[a-z2-9]{8}$/);
+  assert.strictEqual(env.data[1][7], 'Code');
+});
+
+test('createLinks puts the Link header on the header row', () => {
+  const env = realEnv();
+  vm.runInContext("CONFIG.SITE_URL = 'https://ex.app'", env.ctx);
+  env.ctx.createLinks();
+  assert.strictEqual(env.data[1][10], 'Link');
+  assert.strictEqual(env.data[0][10], undefined);
+  assert.strictEqual(env.data[2][10], '=IF(H3="","","https://ex.app/?u="&ENCODEURL(H3))');
 });
 
 console.log(passed + ' passed');

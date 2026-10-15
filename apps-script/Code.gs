@@ -12,8 +12,10 @@
  * RSVP column:  blank = has not replied   0 = not attending   1, 2, ... = number attending
  *
  * Columns are found by their header text (not position), so you can reorder
- * them freely. Required headers (case-insensitive):
+ * them freely. The header row can be any of the first 5 rows (rows above it,
+ * e.g. totals, are ignored). Required headers (case-insensitive):
  *   Name 1, Name 2, Name 3, Name 4, Seats, Code, RSVP, Updated at
+ * Optional: Title (e.g. "Mr. & Mrs.") — shown after "Dear" on the cover.
  * Other columns (Side, Group, notes, ...) are ignored and never sent to guests.
  *
  * Setup steps are in docs/SETUP.md.
@@ -46,6 +48,7 @@ var COLS = {
   rsvp: 'rsvp',
   updatedAt: 'updated at'
 };
+var OPTIONAL_COLS = { title: ['title', 'salutation'] };
 
 /* ------------------------------------------------------------------ */
 /* Web app entry points                                                */
@@ -109,6 +112,7 @@ function normalize_(s) {
   return String(s === null || s === undefined ? '' : s)
     .toLowerCase()
     .replace(/[‐-―−]/g, '-') // en/em dashes -> hyphen
+    .replace(/\+/g, ' ') // a "+" in a link arrives as a space
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -123,14 +127,23 @@ function getSheet_() {
 function readTable_(sheet) {
   var values = sheet.getDataRange().getValues();
   if (!values.length) throw new Error('The tab is empty.');
-  var header = values[0].map(normalize_);
+  // The header row is the first of the top 5 rows that has the Code column.
+  var headerRow = 0;
+  for (var h = 0; h < Math.min(5, values.length); h++) {
+    if (values[h].map(normalize_).indexOf(COLS.code) >= 0) { headerRow = h; break; }
+  }
+  var header = values[headerRow].map(normalize_);
   var idx = {};
   Object.keys(COLS).forEach(function (key) {
     var i = header.indexOf(COLS[key]);
     if (i < 0) throw new Error('Missing column header: "' + COLS[key] + '"');
     idx[key] = i;
   });
-  return { values: values, idx: idx, header: header };
+  Object.keys(OPTIONAL_COLS).forEach(function (key) {
+    idx[key] = -1;
+    OPTIONAL_COLS[key].forEach(function (name) { if (idx[key] < 0) idx[key] = header.indexOf(name); });
+  });
+  return { values: values, idx: idx, header: header, first: headerRow + 1 };
 }
 
 function cellText_(v) {
@@ -149,13 +162,18 @@ function guestFromRow_(t, row) {
     .filter(function (n) { return n.length > 0; });
   var seats = parseInt(row[t.idx.seats], 10);
   if (!(seats >= 1)) seats = names.length || 1;
-  return { names: names, seats: seats, rsvp: count_(row[t.idx.rsvp]) };
+  return {
+    title: t.idx.title >= 0 ? cellText_(row[t.idx.title]) : '',
+    names: names,
+    seats: seats,
+    rsvp: count_(row[t.idx.rsvp])
+  };
 }
 
 function findGuest_(t, code) {
   var wanted = normalize_(code);
   if (!wanted) return null;
-  for (var r = 1; r < t.values.length; r++) {
+  for (var r = t.first; r < t.values.length; r++) {
     var rowCode = normalize_(t.values[r][t.idx.code]);
     if (rowCode && rowCode === wanted) {
       return { rowNumber: r + 1, guest: guestFromRow_(t, t.values[r]) };
@@ -211,12 +229,12 @@ function generateCodes() {
   var sheet = getSheet_();
   var t = readTable_(sheet);
   var used = {};
-  for (var r = 1; r < t.values.length; r++) {
+  for (var r = t.first; r < t.values.length; r++) {
     var existing = normalize_(t.values[r][t.idx.code]);
     if (existing) used[existing] = true;
   }
   var made = 0;
-  for (var row = 1; row < t.values.length; row++) {
+  for (var row = t.first; row < t.values.length; row++) {
     var hasName = cellText_(t.values[row][t.idx.name1]) !== '';
     var hasCode = cellText_(t.values[row][t.idx.code]) !== '';
     if (!hasName || hasCode) continue;
@@ -228,6 +246,20 @@ function generateCodes() {
   }
   Logger.log(made + ' new code(s) created.');
   return made;
+}
+
+/** Lists codes used by more than one row (each must be unique). See View → Logs / Execution log. */
+function checkCodes() {
+  var t = readTable_(getSheet_());
+  var seen = {}, dupes = [];
+  for (var r = t.first; r < t.values.length; r++) {
+    var c = normalize_(t.values[r][t.idx.code]);
+    if (!c) continue;
+    if (seen[c]) dupes.push('"' + c + '" on rows ' + seen[c] + ' and ' + (r + 1));
+    else seen[c] = r + 1;
+  }
+  Logger.log(dupes.length ? 'Duplicate codes:\n' + dupes.join('\n') : 'All codes are unique.');
+  return dupes;
 }
 
 function columnLetter_(index) {
@@ -250,13 +282,13 @@ function createLinks() {
   var linkIndex = t.header.indexOf(normalize_(CONFIG.LINK_COLUMN_HEADER));
   if (linkIndex < 0) {
     linkIndex = t.header.length;
-    sheet.getRange(1, linkIndex + 1).setValue(CONFIG.LINK_COLUMN_HEADER);
+    sheet.getRange(t.first, linkIndex + 1).setValue(CONFIG.LINK_COLUMN_HEADER);
   }
   var codeCol = columnLetter_(t.idx.code);
-  for (var r = 2; r <= t.values.length; r++) {
+  for (var r = t.first + 1; r <= t.values.length; r++) {
     sheet
       .getRange(r, linkIndex + 1)
-      .setFormula('=IF(' + codeCol + r + '="","","' + base + '/?u="&' + codeCol + r + ')');
+      .setFormula('=IF(' + codeCol + r + '="","","' + base + '/?u="&ENCODEURL(' + codeCol + r + '))');
   }
   Logger.log('Links created in column "' + CONFIG.LINK_COLUMN_HEADER + '".');
 }

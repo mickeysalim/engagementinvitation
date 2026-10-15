@@ -117,6 +117,17 @@ async function scrollThrough(page) {
     });
   }
 
+  await test('Title column shows next to Dear and in the RSVP card', async () => {
+    const { page, ctx } = await newPage(browser, base);
+    await page.goto(base + '/?u=demo-title');
+    await ready(page);
+    assert.strictEqual(await page.textContent('.cover__dear'), 'Dear Mr. & Mrs.');
+    assert.strictEqual(await page.textContent('#cover-guest'), 'Victor Chang');
+    await open(page);
+    assert.strictEqual(await page.textContent('#invitee-names'), 'Mr. & Mrs. Victor Chang');
+    await ctx.close();
+  });
+
   await test('opening the invitation hides the cover and is remembered in this tab', async () => {
     const { page, ctx } = await newPage(browser, base);
     await page.goto(base + '/?u=demo');

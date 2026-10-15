@@ -32,6 +32,7 @@
     demo: { names: ['Mr. Budi Hartono', 'Mrs. Lina Wijaya'], seats: 2 },
     'demo-solo': { names: ['Jennifer'], seats: 1 },
     'demo-long': { names: ['Mr. Hardjanto Salim', 'Mrs. Sylvi Lutantowidjojo'], seats: 2 },
+    'demo-title': { title: 'Mr. & Mrs.', names: ['Victor Chang'], seats: 2 },
     'demo-four': { names: ['Mr. Michael Tanoesoedibjo', 'Mrs. Angelina Kusumawardhani', 'Kevin', 'Clarissa'], seats: 4 }
   };
   function demoGuest(c) {
@@ -115,9 +116,11 @@
     setTimeout(function () { root.classList.add('skip-cover'); }, reduceMotion ? 0 : 750);
   });
 
-  function setCoverName(names) {
+  function setCoverName(names, title) {
     var el = $('cover-guest');
     var text = joinNames(names);
+    // Optional "Title" column, e.g. "Mr. & Mrs.", sits next to "Dear".
+    if (title) document.querySelector('.cover__dear').textContent = 'Dear ' + title;
     el.textContent = text;
     el.classList.toggle('is-md', text.length > 24 && text.length <= 40);
     el.classList.toggle('is-sm', text.length > 40);
@@ -340,7 +343,7 @@
       return;
     }
     $('rsvp-message').hidden = true;
-    $('invitee-names').textContent = joinNames(guest.names);
+    $('invitee-names').textContent = (guest.title ? guest.title + ' ' : '') + joinNames(guest.names);
     $('invitee-seats').textContent = 'Your invitation covers ' + guest.seats + (guest.seats === 1 ? ' guest.' : ' guests.');
     saved = savedFrom(guest.rsvp);
     if (saved) state = { answer: saved.answer, count: saved.count };
@@ -431,7 +434,7 @@
   /* ---------- go ---------- */
   (code ? apiGet(code) : Promise.resolve(null)).then(function (g) {
     guest = g;
-    if (g && g.names && g.names.length) setCoverName(g.names);
+    if (g && g.names && g.names.length) setCoverName(g.names, g.title);
     $('cover-guest').classList.add('is-ready');
     setupRsvp();
     setupGift();

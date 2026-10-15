@@ -1,13 +1,15 @@
 # Setup guide
 
 ## 1. Guest list (Google Sheet)
-Use a new tab called **Engagement** in the wedding guest sheet. Row 1 must contain these headers (any order, extra columns are fine and stay private):
+Use the tab called **Engagement** in the guest sheet. The header row (row 1, or one of the first 5 rows if you keep totals above it) must contain these headers, in any order; extra columns (Group, notes…) are fine and stay private:
 
 `Name 1` · `Name 2` · `Name 3` · `Name 4` · `Seats` · `Code` · `RSVP` · `Updated at`
 
-- Put each person's name with their title, e.g. `Mr. Hardjanto Salim` in Name 1 and `Mrs. Sylvi Lutantowidjojo` in Name 2. The cover shows them as "Mr. Hardjanto Salim & Mrs. Sylvi Lutantowidjojo".
+Optional: `Title`, e.g. `Mr. & Mrs.` or `Miss`. The cover then reads "Dear Mr. & Mrs." above the names.
+
 - `Seats` = how many people the invitation covers (blank = number of names).
-- Leave `Code`, `RSVP` and `Updated at` empty. RSVP fills itself: blank = no reply, 0 = declined, 1/2/… = number coming.
+- `Code` must be unique per row. Leave it empty and run **generateCodes** to get random codes, or type your own; run **checkCodes** to find duplicates.
+- RSVP fills itself: blank = no reply, 0 = declined, 1/2/… = number coming.
 
 ## 2. Backend (Google Apps Script), separate from the wedding one
 1. Go to **script.google.com** → **New project**. Name it "Engagement RSVP".
@@ -15,7 +17,7 @@ Use a new tab called **Engagement** in the wedding guest sheet. Row 1 must conta
 3. At the top, fill in:
    - `SHEET_ID`: the long part of the sheet's address, between `/d/` and `/edit`.
    - `GIFT`: bank name, currency, account number and account name. (Only fill these in the Apps Script editor, never in GitHub.)
-4. Save. Choose **generateCodes** in the function menu at the top → **Run** → approve the permissions (first time only). Every guest row now has a code.
+4. Save. Choose **checkCodes** → **Run** (approve permissions the first time) and fix any duplicates it lists. Then choose **generateCodes** in the function menu at the top → **Run** → approve the permissions (first time only). Every guest row now has a code.
 5. **Deploy → New deployment → ⚙ → Web app**. Execute as: **Me**. Who has access: **Anyone**. → **Deploy** → copy the **Web app URL**.
 6. Put that URL in `assets/js/config.js` as `apiUrl` (Claude can do this for you).
 7. Whenever `Code.gs` changes: **Deploy → Manage deployments → ✏️ Edit → Version: New version → Deploy** (the URL stays the same).
