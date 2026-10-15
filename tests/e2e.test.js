@@ -76,6 +76,7 @@ async function scrollThrough(page) {
     await page.goto(base + '/');
     await ready(page);
     assert.strictEqual(await page.textContent('#cover-guest'), 'Family & Friends');
+    assert.strictEqual(await page.textContent('.cover__dear'), 'Dear');
     await open(page);
     assert.ok(/personal link/.test(await page.textContent('#rsvp-message')));
     assert.ok(await page.isHidden('#rsvp-form'));
@@ -102,6 +103,7 @@ async function scrollThrough(page) {
       await ready(page);
       await page.waitForTimeout(1300); // entrance animation
       assert.strictEqual(await page.textContent('#cover-guest'), 'Mr. Hardjanto Salim & Mrs. Sylvi Lutantowidjojo');
+      assert.strictEqual(await page.textContent('.cover__dear'), 'Dear Mr/Mrs/Miss');
       const m = await page.evaluate(() => {
         const r = (s) => document.querySelector(s).getBoundingClientRect();
         const g = r('#cover-guest');

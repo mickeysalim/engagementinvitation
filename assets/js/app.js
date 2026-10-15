@@ -119,8 +119,8 @@
   function setCoverName(names, title) {
     var el = $('cover-guest');
     var text = joinNames(names);
-    // Optional "Title" column, e.g. "Mr. & Mrs.", sits next to "Dear".
-    if (title) document.querySelector('.cover__dear').textContent = 'Dear ' + title;
+    // Same greeting for everyone; an optional "Title" column in the sheet overrides it.
+    document.querySelector('.cover__dear').textContent = 'Dear ' + (title || 'Mr/Mrs/Miss');
     el.textContent = text;
     el.classList.toggle('is-md', text.length > 24 && text.length <= 40);
     el.classList.toggle('is-sm', text.length > 40);
