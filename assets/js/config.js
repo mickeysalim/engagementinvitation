@@ -2,7 +2,7 @@
 window.ENGAGEMENT_CONFIG = {
   // Paste the Apps Script web app URL here (see docs/SETUP.md).
   // While this is empty the site runs in preview mode with sample guests.
-  apiUrl: '',
+  apiUrl: 'https://script.google.com/macros/s/AKfycbwUcRwMra6tdDniOI2Mk1BcnFc2IqpamIBvvbEn3mfVaLOneidtiUbtDheMHstjsz61/exec',
 
   rsvpDeadline: '28 February 2027',
   mapsUrl: 'https://maps.app.goo.gl/nASqm4FpCSYGGn949',
