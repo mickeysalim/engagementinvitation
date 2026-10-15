@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Mickey and Edmund//Engagement//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:engagement-20270320@mickey-edmund
+DTSTAMP:20261015T000000Z
+DTSTART:20270320T040000Z
+DTEND:20270320T070000Z
+SUMMARY:Mickey & Edmund · Engagement
+LOCATION:Riviera Ballroom\, Arena Lakeside\, Sunter\, Jakarta
+DESCRIPTION:We can’t wait to celebrate with you!\nMap: https://maps.app.goo.gl/nASqm4FpCSYGGn949
+URL:https://maps.app.goo.gl/nASqm4FpCSYGGn949
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mickey & Edmund · Engagement tomorrow
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mickey &amp; Edmund · The Engagement</title>
+  <meta name="description" content="You are invited to the engagement of Mickey &amp; Edmund, Saturday 20 March 2027, Riviera Ballroom, Arena Lakeside, Sunter, Jakarta.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#FBE3B4" id="theme-color">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mickey &amp; Edmund · The Engagement">
+  <meta property="og:description" content="Saturday, 20 March 2027 · Riviera Ballroom, Arena Lakeside">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&amp;family=Figtree:wght@400;500;600&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&amp;text=%E5%9B%8D&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>
+    // Marks that scripts run (for scroll reveals); returning visitors in the same tab skip the cover.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      if (/[?&]u=[^&]/.test(location.search)) root.classList.add('has-code');
+      try { if (sessionStorage.getItem('opened')) root.classList.add('skip-cover'); } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <button class="music" id="music" type="button" aria-pressed="false" aria-label="Music" hidden>
+    <span class="music__note"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 17.5V6.2l10-2v11.3a2.7 2.7 0 1 1-1.8-2.5V7.6L10.8 9v8.5A2.7 2.7 0 1 1 9 17.5z"/></svg></span>
+    <svg class="music__slash" viewBox="0 0 46 46" aria-hidden="true"><line x1="13" y1="33" x2="33" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+
+  <!-- Cover -->
+  <section class="cover" id="cover" aria-label="Invitation cover">
+    <svg class="lantern lantern--l" viewBox="0 0 80 150" aria-hidden="true"><use href="#lantern"/></svg>
+    <svg class="lantern lantern--r" viewBox="0 0 80 150" aria-hidden="true"><use href="#lantern"/></svg>
+    <div class="cover__inner">
+      <div class="cover__card">
+        <span class="xi" aria-hidden="true">囍</span>
+        <p class="cover__dear">Dear</p>
+        <h1 class="cover__guest" id="cover-guest">Family &amp; Friends</h1>
+        <span class="divider" aria-hidden="true"><i></i></span>
+        <p class="cover__eng">The Engagement of</p>
+        <p class="cover__names">Mickey <span class="amp">&amp;</span><br>Edmund</p>
+        <p class="pill">20 March 2027</p>
+        <p class="cover__note">It won’t be a party without you. Come celebrate with us!</p>
+      </div>
+      <button class="btn btn--jade cover__open" id="open" type="button">Open Invitation</button>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- Intro photos (4:5 slideshow) -->
+    <section class="intro" aria-label="Photos of Mickey and Edmund">
+      <div class="intro__frame">
+        <img class="slide is-active" src="assets/img/intro-1.jpg" alt="Mickey and Edmund walking hand in hand on the lawn" style="object-position: 50% 82%">
+        <img class="slide" src="assets/img/intro-2.jpg" alt="Mickey and Edmund nose to nose, laughing" style="object-position: 50% 32%">
+        <img class="slide" src="assets/img/intro-3.jpg" alt="Edmund lifting Mickey in the garden" style="object-position: 50% 50%">
+        <div class="dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
+      </div>
+      <div class="scallop" aria-hidden="true"></div>
+    </section>
+
+    <!-- The Couple -->
+    <section class="couple" id="couple">
+      <h2>The Couple</h2>
+      <div class="portraits rv-photo">
+        <div class="portrait"><img src="assets/img/portrait-mickey.jpg" alt="Mickey"></div>
+        <div class="portrait"><img src="assets/img/portrait-edmund.jpg" alt="Edmund"></div>
+      </div>
+      <div class="people rv">
+        <div class="person">
+          <h3>Mickey Jane Salim</h3>
+          <p>First daughter of<br>Mr. Hardjanto Salim &amp; Mrs. Sylvi Lutantowidjojo</p>
+        </div>
+        <span class="divider" aria-hidden="true"><i></i></span>
+        <div class="person">
+          <h3>Edmund Chang</h3>
+          <p>Second son of<br>Mr. Victor Chang &amp; Mrs. Stephanie Chow</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Day -->
+    <section class="day" id="day">
+      <h2>The Day</h2>
+      <div class="day__card rv">
+        <p class="day__weekday">Saturday</p>
+        <p class="day__date">20 March 2027</p>
+        <p class="day__time">11.00 – 14.00</p>
+        <span class="divider" aria-hidden="true"><i></i></span>
+        <p class="day__venue">Riviera Ballroom</p>
+        <p class="day__place">Arena Lakeside, Sunter, Jakarta</p>
+      </div>
+      <div class="day__actions rv">
+        <a class="btn btn--butter" id="cal" href="assets/save-the-date.ics" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+          Save the Date
+        </a>
+        <a class="btn btn--ghost" id="maps" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          Open in Maps
+        </a>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <section class="quote">
+      <div class="tile-strip tile-strip--shadow" aria-hidden="true"></div>
+      <div class="quote__inner">
+        <svg class="orn rv" viewBox="0 0 260 64" aria-hidden="true">
+          <path class="orn-vine" d="M108 32 C 92 32, 88 16, 72 18 C 58 20, 60 38, 46 38 C 32 38, 30 24, 16 26" fill="none" stroke="#B9965B" stroke-width="1.6" stroke-linecap="round"/>
+          <g transform="rotate(-25 80 22)"><ellipse class="orn-leaf" cx="80" cy="22" rx="6.5" ry="2.8" fill="#2F8F7A"/></g>
+          <g transform="rotate(20 54 36)"><ellipse class="orn-leaf" cx="54" cy="36" rx="6.5" ry="2.8" fill="#2F8F7A"/></g>
+          <g transform="rotate(-15 32 29)"><ellipse class="orn-leaf" cx="32" cy="29" rx="5.5" ry="2.4" fill="#4DB096"/></g>
+          <circle class="orn-bud" cx="16" cy="26" r="3.6" fill="#F28C6B"/>
+          <circle cx="100" cy="25" r="1.6" fill="#B9965B"/>
+          <g transform="translate(260 0) scale(-1 1)"><path class="orn-vine" d="M108 32 C 92 32, 88 16, 72 18 C 58 20, 60 38, 46 38 C 32 38, 30 24, 16 26" fill="none" stroke="#B9965B" stroke-width="1.6" stroke-linecap="round"/>
+          <g transform="rotate(-25 80 22)"><ellipse class="orn-leaf" cx="80" cy="22" rx="6.5" ry="2.8" fill="#2F8F7A"/></g>
+          <g transform="rotate(20 54 36)"><ellipse class="orn-leaf" cx="54" cy="36" rx="6.5" ry="2.8" fill="#2F8F7A"/></g>
+          <g transform="rotate(-15 32 29)"><ellipse class="orn-leaf" cx="32" cy="29" rx="5.5" ry="2.4" fill="#4DB096"/></g>
+          <circle class="orn-bud" cx="16" cy="26" r="3.6" fill="#F28C6B"/>
+          <circle cx="100" cy="25" r="1.6" fill="#B9965B"/></g>
+          <g class="orn-spin">
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B"/>
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B" transform="rotate(45 130 32)"/>
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B" transform="rotate(90 130 32)"/>
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B" transform="rotate(135 130 32)"/>
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B" transform="rotate(180 130 32)"/>
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B" transform="rotate(225 130 32)"/>
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B" transform="rotate(270 130 32)"/>
+          <ellipse cx="130" cy="20" rx="5.2" ry="10" fill="#E9789B" transform="rotate(315 130 32)"/>
+          </g>
+          <g class="orn-bloom">
+          <ellipse cx="130" cy="25.5" rx="3.4" ry="6" fill="#FFFFFF" transform="rotate(22 130 32)"/>
+          <ellipse cx="130" cy="25.5" rx="3.4" ry="6" fill="#FFFFFF" transform="rotate(112 130 32)"/>
+          <ellipse cx="130" cy="25.5" rx="3.4" ry="6" fill="#FFFFFF" transform="rotate(202 130 32)"/>
+          <ellipse cx="130" cy="25.5" rx="3.4" ry="6" fill="#FFFFFF" transform="rotate(292 130 32)"/>
+          </g>
+          <circle cx="130" cy="32" r="4.2" fill="#B9965B"/>
+          <circle cx="130" cy="32" r="1.8" fill="#FFF8E6"/>
+        </svg>
+        <p class="rv">Where two families meet, <span>a new home begins.</span></p>
+      </div>
+      <div class="tile-strip" aria-hidden="true"></div>
+    </section>
+
+    <!-- Dress Code -->
+    <section class="dress" id="dress">
+      <h2>Dress Code</h2>
+      <p class="dress__theme rv">Peranakan in Bloom</p>
+      <p class="rv">Kebaya encim, batik or any wastra Nusantara in your brightest, happiest colours.</p>
+      <div class="swatches rv" aria-hidden="true">
+        <span style="--c1:#F4A0BA;--c2:#E06A90"></span>
+        <span style="--c1:#FCE7A0;--c2:#F3CC55"></span>
+        <span style="--c1:#4DB096;--c2:#23826D"></span>
+        <span style="--c1:#F8AC90;--c2:#EE7F5C"></span>
+        <span style="--c1:#A6CDEB;--c2:#6FA8D6"></span>
+      </div>
+      <p class="dress__note rv">Kindly avoid all-white or all-black.</p>
+    </section>
+
+    <!-- RSVP -->
+    <section class="rsvp" id="rsvp">
+      <h2>RSVP</h2>
+      <p class="rsvp__deadline" id="rsvp-deadline">Let us know by 28 February 2027</p>
+      <p class="rsvp__message rv" id="rsvp-message">Loading your invitation…</p>
+      <form class="rsvp__form" id="rsvp-form" novalidate hidden>
+        <div class="rsvp__card">
+          <div class="invitee">
+            <p class="invitee__label">Invitation for</p>
+            <p class="invitee__names" id="invitee-names"></p>
+            <p class="invitee__seats" id="invitee-seats"></p>
+          </div>
+          <div class="question">
+            <p class="question__label" id="can-label">Can you make it?</p>
+            <div class="choices" role="group" aria-labelledby="can-label">
+              <button class="choice" type="button" data-answer="yes" aria-pressed="false">Joyfully</button>
+              <button class="choice" type="button" data-answer="no" aria-pressed="false">Regretfully, no</button>
+            </div>
+          </div>
+          <div class="counter" id="counter" hidden>
+            <span class="counter__label" id="count-label">How many are coming?</span>
+            <span class="counter__controls">
+              <button type="button" class="step" id="fewer" aria-label="Fewer guests">−</button>
+              <output class="counter__n" id="count" aria-labelledby="count-label">1</output>
+              <button type="button" class="step" id="more" aria-label="More guests">+</button>
+            </span>
+          </div>
+        </div>
+        <div class="petals" id="petals" aria-hidden="true"></div>
+        <p class="rsvp__error" id="rsvp-error" role="alert" hidden></p>
+        <button class="btn btn--peony rsvp__submit" id="rsvp-submit" type="submit" disabled>Submit</button>
+        <div class="rsvp__done" id="rsvp-done" role="status" hidden>
+          <p class="rsvp__done-title"></p>
+          <p class="rsvp__done-text"></p>
+        </div>
+      </form>
+    </section>
+
+    <!-- Our Moments -->
+    <section class="moments" id="moments">
+      <h2>Our Moments</h2>
+      <div class="gallery">
+        <div class="photo rv-photo"><img src="assets/img/gallery-1.jpg" alt="Laughing together by the railing" loading="lazy" style="object-position: 50% 50%"></div>
+        <div class="photo rv-photo"><img src="assets/img/gallery-2.jpg" alt="Edmund kicking up a leg while Mickey takes a photo" loading="lazy" style="object-position: 50% 50%"></div>
+        <div class="photo rv-photo"><img src="assets/img/gallery-3.jpg" alt="Forehead to forehead with yellow flowers" loading="lazy" style="object-position: 50% 50%"></div>
+        <div class="photo rv-photo"><img src="assets/img/gallery-4.jpg" alt="A piggyback ride and a kiss" loading="lazy" style="object-position: 50% 61%"></div>
+        <div class="photo rv-photo"><img src="assets/img/gallery-5.jpg" alt="A kiss in front of the Singapore skyline" loading="lazy" style="object-position: 61% 50%"></div>
+        <div class="photo rv-photo"><img src="assets/img/gallery-6.jpg" alt="Relaxing on the lawn by the bay" loading="lazy" style="object-position: 50% 100%"></div>
+      </div>
+      <a class="btn btn--outline story rv" id="story" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>
+        Read Our Love Story
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </section>
+
+    <!-- Engagement Gift (only for guests with a valid link) -->
+    <section class="gift" id="gift" hidden>
+      <svg class="sprig sprig--l" viewBox="0 0 110 64" aria-hidden="true">
+        <path class="orn-vine" d="M0 14 C 22 14, 26 40, 46 40 C 62 40, 64 26, 80 32 C 86 34, 88 36, 90 38" fill="none" stroke="#B9965B" stroke-width="1.6" stroke-linecap="round"/>
+        <g transform="rotate(-30 28 26)"><ellipse class="orn-leaf" cx="28" cy="26" rx="7" ry="3" fill="#2F8F7A"/></g>
+        <g transform="rotate(25 58 46)"><ellipse class="orn-leaf" cx="58" cy="46" rx="6.5" ry="2.8" fill="#4DB096"/></g>
+        <g transform="rotate(-20 66 26)"><ellipse class="orn-leaf" cx="66" cy="26" rx="5.5" ry="2.4" fill="#2F8F7A"/></g>
+        <circle class="orn-bud" cx="44" cy="52" r="3.2" fill="#F28C6B"/>
+        <g class="orn-spin">
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(60 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(120 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(180 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(240 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(300 94 38)"/>
+        </g>
+        <circle cx="94" cy="38" r="3.6" fill="#FFFFFF"/>
+        <circle cx="94" cy="38" r="2" fill="#B9965B"/>
+      </svg>
+      <svg class="sprig sprig--r" viewBox="0 0 110 64" aria-hidden="true">
+        <path class="orn-vine" d="M0 14 C 22 14, 26 40, 46 40 C 62 40, 64 26, 80 32 C 86 34, 88 36, 90 38" fill="none" stroke="#B9965B" stroke-width="1.6" stroke-linecap="round"/>
+        <g transform="rotate(-30 28 26)"><ellipse class="orn-leaf" cx="28" cy="26" rx="7" ry="3" fill="#2F8F7A"/></g>
+        <g transform="rotate(25 58 46)"><ellipse class="orn-leaf" cx="58" cy="46" rx="6.5" ry="2.8" fill="#4DB096"/></g>
+        <g transform="rotate(-20 66 26)"><ellipse class="orn-leaf" cx="66" cy="26" rx="5.5" ry="2.4" fill="#2F8F7A"/></g>
+        <circle class="orn-bud" cx="44" cy="52" r="3.2" fill="#F28C6B"/>
+        <g class="orn-spin">
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(60 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(120 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(180 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(240 94 38)"/>
+        <ellipse cx="94" cy="30" rx="4.2" ry="8" fill="#E9789B" transform="rotate(300 94 38)"/>
+        </g>
+        <circle cx="94" cy="38" r="3.6" fill="#FFFFFF"/>
+        <circle cx="94" cy="38" r="2" fill="#B9965B"/>
+      </svg>
+      <h2>Engagement Gift</h2>
+      <p class="gift__text rv">Your presence is the greatest gift of all. Should you wish to send a token of love, our details are below.</p>
+      <div class="gift__card rv">
+        <button class="gift__toggle" id="gift-toggle" type="button" aria-expanded="false" aria-controls="accounts">
+          <span><strong>Bank Details</strong><small id="gift-summary"></small></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accounts" id="accounts" hidden></div>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="closing">
+      <div class="closing__inner rv">
+        <span class="xi xi--gold" aria-hidden="true">囍</span>
+        <p class="closing__thanks">Thank you for celebrating our engagement. Your blessings mean the world to us.</p>
+        <span class="divider divider--gold" aria-hidden="true"><i></i></span>
+        <p class="closing__love">With love,</p>
+        <p class="closing__parents">Mr. Hardjanto Salim &amp; Mrs. Sylvi Lutantowidjojo<br>Mr. Victor Chang &amp; Mrs. Stephanie Chow</p>
+        <p class="closing__names">Mickey <span>&amp;</span> Edmund</p>
+      </div>
+      <div class="tile-strip" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <!-- Shared drawings -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="lantern-fill" cx="38%" cy="32%" r="72%"><stop offset="0" stop-color="#F8AFC4"/><stop offset="1" stop-color="#D24F78"/></radialGradient>
+      <symbol id="lantern" viewBox="0 0 80 150">
+        <line x1="40" y1="0" x2="40" y2="30" stroke="#B9965B" stroke-width="2"/>
+        <rect x="26" y="28" width="28" height="8" rx="2" fill="#B9965B"/>
+        <ellipse cx="40" cy="70" rx="34" ry="36" fill="url(#lantern-fill)"/>
+        <ellipse cx="40" cy="70" rx="18" ry="36" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <line x1="40" y1="34" x2="40" y2="106" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <rect x="26" y="104" width="28" height="8" rx="2" fill="#B9965B"/>
+        <path d="M34 112v32M40 112v36M46 112v32" stroke="#E2B85A" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
