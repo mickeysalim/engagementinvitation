@@ -152,21 +152,21 @@
     }
   })();
 
-  /* ---------- intro slideshow: 3 seconds per photo ---------- */
-  (function () {
-    var slides = Array.prototype.slice.call(document.querySelectorAll('.intro .slide'));
-    var dots = Array.prototype.slice.call(document.querySelectorAll('.intro .dots span'));
+  /* ---------- photo slideshows (intro on phones, beside the cover on laptops): 3 seconds per photo ---------- */
+  document.querySelectorAll('.slideshow').forEach(function (show) {
+    var slides = Array.prototype.slice.call(show.querySelectorAll('.slide'));
+    var dots = Array.prototype.slice.call(show.querySelectorAll('.dots span'));
     if (slides.length < 2 || reduceMotion) return;
     var i = 0;
     setInterval(function () {
-      if (document.hidden) return;
+      if (document.hidden || !show.offsetParent) return; // skip when hidden
       slides[i].classList.remove('is-active');
       if (dots[i]) dots[i].classList.remove('is-active');
       i = (i + 1) % slides.length;
       slides[i].classList.add('is-active');
       if (dots[i]) dots[i].classList.add('is-active');
     }, 3000);
-  })();
+  });
 
   /* ---------- sections float in as they scroll into view ---------- */
   (function () {

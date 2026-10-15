@@ -53,12 +53,19 @@
       </div>
       <button class="btn btn--jade cover__open" id="open" type="button">Open Invitation</button>
     </div>
+    <!-- Laptops: photos beside the invitation (hidden on phones) -->
+    <div class="cover__photos slideshow" aria-hidden="true">
+      <img class="slide is-active" src="assets/img/intro-2.jpg" alt="" loading="lazy" style="object-position: 50% 32%">
+      <img class="slide" src="assets/img/intro-1.jpg" alt="" loading="lazy" style="object-position: 50% 82%">
+      <img class="slide" src="assets/img/intro-3.jpg" alt="" loading="lazy" style="object-position: 50% 50%">
+      <div class="dots"><span class="is-active"></span><span></span><span></span></div>
+    </div>
   </section>
 
   <main id="main">
     <!-- Intro photos (4:5 slideshow) -->
     <section class="intro" aria-label="Photos of Mickey and Edmund">
-      <div class="intro__frame">
+      <div class="intro__frame slideshow">
         <img class="slide is-active" src="assets/img/intro-1.jpg" alt="Mickey and Edmund walking hand in hand on the lawn" style="object-position: 50% 82%">
         <img class="slide" src="assets/img/intro-2.jpg" alt="Mickey and Edmund nose to nose, laughing" style="object-position: 50% 32%">
         <img class="slide" src="assets/img/intro-3.jpg" alt="Edmund lifting Mickey in the garden" style="object-position: 50% 50%">

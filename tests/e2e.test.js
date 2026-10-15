@@ -131,6 +131,36 @@ async function scrollThrough(page) {
     await ctx.close();
   });
 
+  for (const vp of [{ width: 1280, height: 800 }, { width: 1366, height: 650 }, { width: 1920, height: 1080 }]) {
+    await test('laptop ' + vp.width + '×' + vp.height + ': invitation and photos side by side, no lone photo after opening', async () => {
+      const { page, ctx } = await newPage(browser, base, { viewport: vp, fonts: true });
+      await page.goto(base + '/?u=demo-long');
+      await ready(page);
+      await page.waitForTimeout(1300);
+      const m = await page.evaluate(() => {
+        const r = (s) => document.querySelector(s).getBoundingClientRect();
+        return { card: r('.cover__card'), btn: r('#open'), photos: r('.cover__photos'), vw: innerWidth, vh: innerHeight };
+      });
+      assert.ok(m.photos.width > 0 && Math.abs(m.photos.left - m.vw / 2) < 2, 'photos fill the right half');
+      assert.ok(m.photos.height >= m.vh - 1, 'photos fill the height');
+      assert.ok(m.card.right <= m.vw / 2 && m.btn.bottom <= m.vh, 'invitation fits in the left half');
+      await page.screenshot({ path: path.join(SHOTS, `desktop-cover-${vp.width}x${vp.height}.png`) });
+      await open(page);
+      assert.ok(await page.isHidden('.intro'));
+      assert.ok(await page.isVisible('.couple'));
+      await ctx.close();
+    });
+  }
+
+  await test('phone: no photos on the cover, photo section after opening', async () => {
+    const { page, ctx } = await newPage(browser, base);
+    await page.goto(base + '/');
+    assert.ok(await page.isHidden('.cover__photos'));
+    await open(page);
+    assert.ok(await page.isVisible('.intro'));
+    await ctx.close();
+  });
+
   await test('opening the invitation hides the cover and is remembered in this tab', async () => {
     const { page, ctx } = await newPage(browser, base);
     await page.goto(base + '/?u=demo');

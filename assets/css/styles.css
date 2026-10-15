@@ -193,6 +193,22 @@ html.skip-cover .cover { display: none; }
 }
 .cover__open { width: calc(100% - 32px); min-height: 52px; font-size: 16px; animation: rise .9s var(--ease) .45s both; }
 
+/* laptops: invitation on the left, photos on the right; the separate photo section is skipped */
+.cover__photos { display: none; }
+@media (min-width: 960px) {
+  .cover { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; padding: 0; }
+  .cover__inner { align-self: center; justify-self: center; }
+  .cover__photos { display: block; position: relative; overflow: hidden; background: #DCCFC2; }
+  .cover__photos::after {
+    content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 7px; z-index: 2;
+    background: linear-gradient(90deg, #FFFFFF 6px, var(--gold-l) 6px);
+  }
+  .cover__photos .dots { bottom: 34px; }
+  .lantern--l { left: 4%; }
+  .lantern--r { right: calc(50% + 6%); }
+  main > .intro { display: none; }
+}
+
 /* short screens (in-app browsers): tighten the card */
 @media (max-height: 760px) {
   .cover { padding-top: 84px; }
@@ -204,6 +220,11 @@ html.skip-cover .cover { display: none; }
 @media (max-height: 640px) {
   .lantern { display: none; }
   .cover { padding-top: 24px; align-items: flex-start; overflow-y: auto; }
+}
+@media (min-width: 960px) {
+  .cover { padding: 0; align-items: stretch; overflow-y: auto; }
+  .cover__inner { padding: 80px 24px 32px; }
+  .lantern { display: block; }
 }
 
 /* ---------- intro slideshow (4:5) ---------- */
