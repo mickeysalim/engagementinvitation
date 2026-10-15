@@ -226,6 +226,16 @@ html.skip-cover .cover { display: none; }
   .cover__inner { padding: 80px 24px 32px; }
   .lantern { display: block; }
 }
+/* short laptop windows: keep the card and button on screen */
+@media (min-width: 960px) and (max-height: 720px) {
+  .lantern { display: none; }
+  .cover__inner { padding: 20px 24px; gap: 14px; }
+  .cover__card { padding: 34px 22px 18px; gap: 7px; border-radius: 170px 170px 24px 24px; }
+  .cover__card .xi { width: 42px; height: 42px; font-size: 21px; }
+  .cover__names { font-size: 40px; }
+  .cover__note { font-size: 21px; }
+  .cover__open { min-height: 46px; }
+}
 
 /* ---------- intro slideshow (4:5) ---------- */
 main > .intro { padding: 0; background: linear-gradient(180deg, #FBE3B4, var(--white)); }

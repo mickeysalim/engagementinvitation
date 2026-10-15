@@ -49,3 +49,14 @@ Pages are `noindex`. The backend only returns the one guest whose code is in the
 
 ## Tests
 `node tests/apps-script.test.js` (backend) and `NODE_PATH=$(npm root -g) node tests/e2e.test.js` (browser; screenshots in `tests/screenshots/`).
+
+## Day-to-day changes (no redeploy needed)
+| You change… | Then… |
+|---|---|
+| Names, Seats, Group, notes on an existing row | Nothing. The site reads the sheet live. |
+| Add a new guest row | Type a unique code (or leave it empty and run **generateCodes**), then run **createLinks** to fill its Link. |
+| Delete a guest row | Nothing. |
+| A code, after the link was sent | The old link stops working. Change the code back, or send the new link. The RSVP stays on the row either way. |
+| The script (`Code.gs`) | **Deploy → Manage deployments → ✏️ → New version → Deploy**. |
+
+Tip: protect the Code column (select it → right-click → **Protect range** → "Show a warning when editing") so codes are not changed by accident.

@@ -45,7 +45,7 @@ async function newPage(browser, base, opts = {}) {
   });
   const page = await ctx.newPage();
   if (!opts.fonts) await page.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
-  await page.route('**/assets/js/config.js', (r) => r.fulfill({ contentType: 'text/javascript', body: configWith(opts.config || {}) }));
+  await page.route('**/assets/js/config.js*', (r) => r.fulfill({ contentType: 'text/javascript', body: configWith(opts.config || {}) }));
   const errors = [];
   page.on('pageerror', (e) => errors.push(e));
   page.errors = errors;
@@ -71,6 +71,13 @@ async function scrollThrough(page) {
   await new Promise((r) => server.listen(0, r));
   const base = 'http://localhost:' + server.address().port;
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium' }).catch(() => chromium.launch());
+
+  await test('page asks for versioned styles and scripts (no stale cached files)', async () => {
+    const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+    assert.ok(/styles\.css\?v=\d+/.test(html) && /app\.js\?v=\d+/.test(html) && /config\.js\?v=\d+/.test(html));
+    const v = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+    assert.ok(v.headers.some((h) => /css\|js/.test(h.source) && h.headers.some((x) => /max-age=0/.test(x.value))));
+  });
 
   await test('without a code: friendly cover, no RSVP form, no bank details', async () => {
     const { page, ctx } = await newPage(browser, base);
@@ -131,7 +138,7 @@ async function scrollThrough(page) {
     await ctx.close();
   });
 
-  for (const vp of [{ width: 1280, height: 800 }, { width: 1366, height: 650 }, { width: 1920, height: 1080 }]) {
+  for (const vp of [{ width: 1000, height: 565 }, { width: 1280, height: 800 }, { width: 1366, height: 650 }, { width: 1920, height: 1080 }]) {
     await test('laptop ' + vp.width + '×' + vp.height + ': invitation and photos side by side, no lone photo after opening', async () => {
       const { page, ctx } = await newPage(browser, base, { viewport: vp, fonts: true });
       await page.goto(base + '/?u=demo-long');
